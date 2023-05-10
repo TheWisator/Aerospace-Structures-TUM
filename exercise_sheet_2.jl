@@ -58,6 +58,7 @@ println(solved[2])
 ϕ_series = range(0.1, deg2rad(89), length=100)
 
 # result vactors
+u_x = []
 u_y = []
 detK = []
 eigenvalK = []
@@ -72,7 +73,7 @@ for ϕ in ϕ_series
     append!(eigenvecK, [round.(eigvecs(K_matrix), digits=2)])
 end
 
-p1 = plot(rad2deg.(ϕ_series), u_y)
+p1 = plot(rad2deg.(ϕ_series), sqrt.(u_y.^2 .+ u_x.^2))
 
 xlabel!(p1, "ϕ [degrees]")
 ylabel!(p1, "u_y")
