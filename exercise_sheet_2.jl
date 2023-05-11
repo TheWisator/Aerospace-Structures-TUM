@@ -55,7 +55,7 @@ println("Force Vector:")
 println(solved[2])
 
 ## TASK 4
-ϕ_series = range(0.1, deg2rad(89), length=100)
+ϕ_series = range(deg2rad(10), deg2rad(80), length=10000)
 
 # result vactors
 u_x = []
@@ -67,16 +67,17 @@ eigenvecK = []
 for ϕ in ϕ_series
     solved_cache = solve_task_three(ϕ, ϕ, 1, -0.8)
     K_matrix = K(ϕ, ϕ)
+    append!(u_x, solved_cache[1][1])
     append!(u_y, solved_cache[1][2])
     append!(detK, det(K_matrix))
     append!(eigenvalK, [round.(eigvals(K_matrix), digits=2)])
     append!(eigenvecK, [round.(eigvecs(K_matrix), digits=2)])
 end
 
-p1 = plot(rad2deg.(ϕ_series), sqrt.(u_y.^2 .+ u_x.^2))
+p1 = plot(rad2deg.(ϕ_series), sqrt.(u_y.^2 + u_x.^2))
 
 xlabel!(p1, "ϕ [degrees]")
-ylabel!(p1, "u_y")
+ylabel!(p1, "|u|")
 #=println("Eigenvalues of K")
 display(eigenvalK)
 println("Eigenvectors of K")
